@@ -10,13 +10,21 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   const currentPage = ref(1);
   const isLoading = ref(false);
   const data = ref([]);
-  const message = ref<any>([]);
+  const message = ref<object>([]);
 
   // getters
   const token = computed((): string => {
-    let query = String(document.location).split("?");
-    if (query[0].indexOf("usertoken") !== -1) return "?" + query[0];
-    else return "?";
+    let url: string = location.toString();
+    let query: string[] = url.split("?");
+    let userToken: string[] = query.filter((word: string) => {
+      return word.includes("usertken");
+    });
+
+    if (userToken[0]) {
+      return "?" + userToken[0];
+    } else {
+      return "?";
+    }
   });
 
   const apiUrlList = computed((): string => {
@@ -28,7 +36,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   });
 
   const filteredItem = computed((): any => {
-    if(!data.value) return;
+    if (!data.value) return;
 
     return data.value
       .filter((item: any) => {
