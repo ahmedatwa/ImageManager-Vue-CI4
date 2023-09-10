@@ -16,10 +16,13 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   
   return {
-    root: resolve(__dirname, './src'),
+    base: "",
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src/"),
+        '@assets': resolve(__dirname, './src/assets'),
+        '@components': resolve(__dirname, './src/components'),
+        '@stores': resolve(__dirname, './src/stores'),
       },
     },
     build: {
@@ -30,9 +33,11 @@ export default defineConfig(({ command, mode }) => {
       },
     },  
     plugins: [vue()],
-    // vite config
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
+      __APP_NAME__: JSON.stringify('Filemanager'),
+      __APP_VERSION__: JSON.stringify('v1.2'),
+      __API_URL__: JSON.stringify("http://localhost/project-root/public/filemanager"),
     },
   }
 })

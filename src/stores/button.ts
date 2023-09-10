@@ -1,7 +1,7 @@
 // stores/button.ts
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { useFilemanagerStore } from "./filemanager.ts";
+import { useFilemanagerStore } from "@stores/filemanager.ts";
 
 export const usebuttonStore = defineStore("button", () => {
   // state
@@ -13,15 +13,15 @@ export const usebuttonStore = defineStore("button", () => {
 
   // getters
   const folderApiURL = computed((): string => {
-    return filemanager.url + "/folder" + filemanager.token;
+    return __API_URL__ + "/folder" + filemanager.token;
   });
 
   const deleteURL = computed((): string => {
-    return filemanager.url + "/delete" + filemanager.token;
+    return __API_URL__ + "/delete" + filemanager.token;
   });
 
   const uploadURL = computed((): string => {
-    return filemanager.url + "/upload" + filemanager.token;
+    return __API_URL__ + "/upload" + filemanager.token;
   });
 
   // Actions

@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import PlaceholderComponent from "./components/PlaceholderComponent.vue"
-import FolderFormComponent from "./components/FolderFormComponent.vue"
-import PaginationComponent from "./components/PaginationComponent.vue"
-import SearchFormComponent from "./components/SearchFormComponent.vue"
-import AlertComponent from "./components/AlertComponent.vue"
+import PlaceholderComponent from "@components/PlaceholderComponent.vue"
+import FolderFormComponent from "@components/FolderFormComponent.vue"
+import PaginationComponent from "@components/PaginationComponent.vue"
+import SearchFormComponent from "@components/SearchFormComponent.vue"
+import AlertComponent from "@components/AlertComponent.vue"
 import ButtonGroupComponent from "./components/ButtonGroupComponent.vue"
 
 import { ref, onMounted } from 'vue'
-import { useFilemanagerStore } from './store/filemanager.ts'
-import { usebuttonStore } from './store/button.ts'
+import { useFilemanagerStore } from '@stores/filemanager.ts'
+import { usebuttonStore } from '@stores/button.ts'
 
 const filemanagerStore = useFilemanagerStore()
 const buttonStore = usebuttonStore()
-const title = ref('Filemanager')
+const title = ref(__APP_NAME__)
+const appVersion = ref(__APP_VERSION__)
 
 onMounted((): void => {
   filemanagerStore.getList();
 })
 
+const thumb = (src: string)=> {
+console.log(src)
+}
 </script>
 
 <template>
   <div class="container mt-4">
-    <h5>{{ title }}</h5>
+    <h5>{{ title }} <small class="fw-light">{{ appVersion }}</small></h5>
     <div class="row border-top pt-2">
       <ButtonGroupComponent></ButtonGroupComponent>
       <SearchFormComponent></SearchFormComponent>
@@ -49,7 +53,7 @@ onMounted((): void => {
           <!-- Images -->
           <div v-if="item.type === 'image'" :id="`row-image-${index}`" style="min-height: 100px" class="mb-3">
             <div class="card border-0">
-              <a :href="item.href" class="image">
+              <a @click.prevent="thumb(item.thumb)" class="image">
                 <img :src="item.thumb" :alt="item.name" :title="item.name" class="img-thumbnail" />
               </a>
               <div class="card-body">

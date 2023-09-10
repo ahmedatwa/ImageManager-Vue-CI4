@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useFilemanagerStore } from '../store/filemanager.ts'
+import { useFilemanagerStore } from '@stores/filemanager.ts'
 
 const filemanagerStore = useFilemanagerStore()
-
 </script>
 <template>
     <div class="modal-footer">

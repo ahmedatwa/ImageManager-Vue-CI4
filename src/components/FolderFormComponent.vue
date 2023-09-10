@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usebuttonStore } from '../store/button.ts'
+import { usebuttonStore } from '@stores/button.ts'
 
 const buttonStore = usebuttonStore()
 
@@ -11,7 +11,7 @@ const buttonStore = usebuttonStore()
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Add Folder" v-model="buttonStore.folder" />
                 <button class="btn btn-primary" type="submit" :disabled="buttonStore.folder.length < 3">
-                    <i class="fas fa-plus-circle"></i>
+                    <font-awesome-icon icon="circle-plus" />
                 </button>
             </div>
         </form>

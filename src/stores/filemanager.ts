@@ -4,7 +4,6 @@ import { defineStore } from "pinia";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
   // state
-  const url = ref("http://localhost/project-root/public/filemanager");
   const currentPath = ref("");
   const filtername = ref("");
   const perPage = ref(12);
@@ -21,7 +20,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   });
 
   const apiUrlList = computed((): string => {
-    return url.value + "/list" + token.value;
+    return __API_URL__ + "/list" + token.value;
   });
 
   const totalPages = computed((): number => {
@@ -75,7 +74,6 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   };
 
   return {
-    url,
     token,
     totalPages,
     message,

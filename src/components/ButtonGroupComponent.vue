@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useFilemanagerStore } from '../store/filemanager.ts'
-import { usebuttonStore } from '../store/button.ts'
+import { useFilemanagerStore } from '@stores/filemanager.ts'
+import { usebuttonStore } from '@stores/button.ts'
 
 const buttonStore = usebuttonStore()
 const filemanagerStore = useFilemanagerStore()

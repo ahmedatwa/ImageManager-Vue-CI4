@@ -13,6 +13,7 @@ import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(
@@ -21,7 +22,8 @@ library.add(
   faFolderPlus,
   faFileArrowUp,
   faTrashCan,
-  faFolder
+  faFolder,
+  faCirclePlus
 );
 
 const app = createApp(App);
