@@ -6,7 +6,7 @@ import SearchFormComponent from "@components/SearchFormComponent.vue";
 import AlertComponent from "@components/AlertComponent.vue";
 import ButtonGroupComponent from "./components/ButtonGroupComponent.vue";
 
-import { ref, onMounted, nextTick } from "vue";
+import { ref, onMounted } from "vue";
 import { useFilemanagerStore } from "@stores/filemanager.ts";
 import { usebuttonStore } from "@stores/button.ts";
 
@@ -18,8 +18,7 @@ const appVersion = ref(__APP_VERSION__);
 // onCreated(() => {
 //  console.log('created')
 // })
-onMounted(async () => {
-  await nextTick()
+onMounted(() => {
   filemanagerStore.getList();
 });
 
@@ -70,12 +69,11 @@ const thumb = (url: string, path: string): void => {
       <AlertComponent v-if="buttonStore.isVisableAlert"></AlertComponent>
     </div>
     <FolderFormComponent v-if="buttonStore.isFolder"></FolderFormComponent>
-    <div class="container text-center">
-      <div class="row row-cols-sm-3 row-cols-lg-4 px-1 mt-3 border-top pt-2 justify-content-md-center">
-        <PlaceholderComponent v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
+    <div class="container text-center border-top px-1 mt-3 pt-2">
+      <PlaceholderComponent v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
           :is-loading="filemanagerStore.isLoading" :is-empty="!filemanagerStore.totalPages">
         </PlaceholderComponent>
-
+      <div class="row row-cols-sm-3 row-cols-lg-4 justify-content-md-center">
         <div v-for="(item, index) in filemanagerStore.filteredItem" :key="index">
           <div v-if="item.type === 'directory'" :id="`row-directory-${index}`" class="mb-3">
             <div class="mb-1">
@@ -108,3 +106,8 @@ const thumb = (url: string, path: string): void => {
     <PaginationComponent v-if="filemanagerStore.totalPages > 1"></PaginationComponent>
   </div>
 </template>
+<style scoped>
+.fa-5x {
+  font-size: 7.5em;
+}
+</style>

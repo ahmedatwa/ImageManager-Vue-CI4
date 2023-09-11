@@ -21,7 +21,7 @@ export const usebuttonStore = defineStore("button", () => {
   });
 
   const uploadURL = computed((): string => {
-    return __API_URL__ + "/upload" + filemanagerStore.token;
+    return __API_URL__ + "/upload" + filemanagerStore.token
   });
 
   // Actions
@@ -122,10 +122,11 @@ export const usebuttonStore = defineStore("button", () => {
 
     let formData = new FormData();
     formData.append("files", target.files[0]);
+    formData.append("directory", filemanagerStore.currentPath);
 
     let response = await fetch(uploadURL.value, {
       method: "POST",
-      body: formData,
+      body: formData
     });
     if (response.status === 400) {
       let data = await response.json();

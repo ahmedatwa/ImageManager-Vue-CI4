@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import router from './router'
-
 import App from "./App.vue";
 
 /* import the fontawesome core */
@@ -11,20 +10,20 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 /* import specific icons */
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
-import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
-import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(
   faArrowUp,
   faArrowsRotate,
-  faFolderPlus,
-  faFileArrowUp,
+  faUpload,
   faTrashCan,
   faFolder,
+  faFolderPlus,
   faCirclePlus
 );
 
