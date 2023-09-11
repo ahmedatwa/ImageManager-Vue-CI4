@@ -5,7 +5,7 @@ const filemanagerStore = useFilemanagerStore()
 </script>
 <template>
     <div class="modal-footer">
-        <nav v-if="filemanagerStore.totalPages > 1">
+        <nav>
             <ul class="pagination">
                 <li class="page-item">
                     <a class="page-link" href="#" @click="filemanagerStore.previousPage" aria-label="Previous"

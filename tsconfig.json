@@ -10,7 +10,8 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@stores/*": ["src/stores/*"]
+      "@stores/*": ["src/stores/*"],
+      "@views/*": ["src/views/*"]
     },
 
     /* Bundler mode */

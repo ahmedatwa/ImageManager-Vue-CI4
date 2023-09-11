@@ -6,7 +6,7 @@ const buttonStore = usebuttonStore()
 </script>
 
 <template>
-    <div class="col-9 mb-4 m-auto" v-if="buttonStore.isFolder" enctype="multipart/form-data">
+    <div class="col-9 mb-4 m-auto" enctype="multipart/form-data">
         <form @submit.prevent="buttonStore.createFolder" class="mt-2">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Add Folder" v-model="buttonStore.folder" />

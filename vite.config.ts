@@ -4,12 +4,10 @@ import { fileURLToPath } from 'url'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [vue()],
-// })
+
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   
 // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
@@ -19,10 +17,11 @@ export default defineConfig(({ command, mode }) => {
     base: "",
     resolve: {
       alias: {
-        "@": resolve(__dirname, "./src/"),
+        "@": resolve(__dirname, "./src"),
         '@assets': resolve(__dirname, './src/assets'),
         '@components': resolve(__dirname, './src/components'),
         '@stores': resolve(__dirname, './src/stores'),
+        '@views': resolve(__dirname, './src/views'),
       },
     },
     build: {
@@ -37,7 +36,7 @@ export default defineConfig(({ command, mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
       __APP_NAME__: JSON.stringify('Filemanager'),
       __APP_VERSION__: JSON.stringify('v1.2'),
-      __API_URL__: JSON.stringify("http://localhost/project-root/public/filemanager"),
+      __API_URL__: JSON.stringify("http://localhost/project-root/public/api/filemanager"),
     },
   }
 })

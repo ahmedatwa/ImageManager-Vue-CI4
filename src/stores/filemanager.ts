@@ -1,25 +1,25 @@
 // stores/filemanager.ts
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
   // state
   const currentPath = ref("");
   const filtername = ref("");
-  const perPage = ref(12);
+  const perPage = ref(9);
   const currentPage = ref(1);
   const isLoading = ref(false);
-  const data = ref([]);
-  const message = ref<object>([]);
+  const data = ref<any[]>([]);
+  const messages = ref<object>([]);
 
   // getters
   const token = computed((): string => {
     let url: string = location.toString();
+
     let query: string[] = url.split("?");
     let userToken: string[] = query.filter((word: string) => {
-      return word.includes("usertken");
+      return word.includes("usertoken");
     });
-
     if (userToken[0]) {
       return "?" + userToken[0];
     } else {
@@ -37,7 +37,6 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
 
   const filteredItem = computed((): any => {
     if (!data.value) return;
-
     return data.value
       .filter((item: any) => {
         return item.name.toLowerCase().includes(filtername.value.toLowerCase());
@@ -45,10 +44,17 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       .filter((_, index: number) => {
         let start = (currentPage.value - 1) * perPage.value;
         let end = currentPage.value * perPage.value;
-
         if (index >= start && index < end) return true;
       });
   });
+
+  // reset current page on status change
+  watch(
+    [() => filtername.value, () => currentPath.value],
+    ([__newFilter, __newPath]) => {
+      currentPage.value = 1;
+    }
+  );
 
   // actions
   const getList = async (
@@ -67,12 +73,13 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       data.value = resource;
       isLoading.value = false;
     } catch (error) {
-      message.value = [{ type: "danger", text: error }];
+      messages.value = { error: error };
     }
   };
 
   const nextPage = (): void => {
-    if (currentPage.value < totalPages.value) currentPage.value++;
+    if (currentPage.value * totalPages.value < filteredItem.value.length)
+      currentPage.value++;
   };
   const previousPage = (): void => {
     if (currentPage.value > 1) currentPage.value--;
@@ -83,8 +90,9 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
 
   return {
     token,
+    data,
     totalPages,
-    message,
+    messages,
     filteredItem,
     currentPage,
     currentPath,
