@@ -36,7 +36,7 @@ const thumb = (url: string, path: string): void => {
 
   // remove bootstrap modal
   let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
-  if (inputVal != null) modal.remove();
+  if (modal != null) modal.remove();
   // remove modal backdrop
   let modalBackdrop = parentDoc.getElementsByClassName(
     "modal-backdrop"
@@ -50,6 +50,20 @@ const thumb = (url: string, path: string): void => {
   body.style.overflow = "";
   body.style.padding = "";
 };
+
+const closeModal = (): void => {
+  let parentDoc = window.parent.document
+  // remove bootstrap modal
+  let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
+  let modalBackdrop = parentDoc.getElementsByClassName(
+    "modal-backdrop"
+  )[0] as HTMLDivElement;
+
+  if (modal !== null && modalBackdrop !== null)
+    modalBackdrop.remove();
+  modal.remove();
+
+}
 </script>
 
 <template>
@@ -58,7 +72,7 @@ const thumb = (url: string, path: string): void => {
       <h5 class="modal-title"> {{ title }} <small class="fw-light">{{ appVersion }}</small></h5>
     </div>
     <div class="p-2">
-      <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+      <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
     </div>
   </div>
   <div class="container mt-2">
@@ -109,6 +123,7 @@ const thumb = (url: string, path: string): void => {
 .fa-5x {
   font-size: 7.5em;
 }
+
 .mx-6 {
   margin-right: 3.5rem !important;
   margin-left: 3.5rem !important;
