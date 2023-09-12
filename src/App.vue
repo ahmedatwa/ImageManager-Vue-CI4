@@ -15,43 +15,37 @@ const buttonStore = usebuttonStore();
 const title = ref(__APP_NAME__);
 const appVersion = ref(__APP_VERSION__);
 
-// onCreated(() => {
-//  console.log('created')
-// })
 onMounted(() => {
   filemanagerStore.getList();
 });
 
-
-
+// for CI to target the input and img element
 const thumb = (url: string, path: string): void => {
-  let parentDoc = window.parent.document 
+  let parentDoc = window.parent.document
   const imageSrc = parentDoc.getElementById(
     "thumb-image"
   ) as HTMLImageElement | null;
   const inputVal = parentDoc.getElementById(
     "input-image"
   ) as HTMLInputElement | null;
-
-  if (imageSrc != null) {
+// add vars to html element
+  if (imageSrc != null && inputVal != null) {
     imageSrc.src = url;
-  }
-  if (inputVal != null) {
     inputVal.value = path;
   }
-  let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
-  modal.remove();
 
+  // remove bootstrap modal
+  let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
+  if (inputVal != null) modal.remove();
+  // remove modal backdrop
   let modalBackdrop = parentDoc.getElementsByClassName(
     "modal-backdrop"
   )[0] as HTMLDivElement;
 
-  if (modalBackdrop) {
-    modalBackdrop.remove();
-  }
+  if (modalBackdrop) modalBackdrop.remove();
 
+  // clear body attrs 
   const body = parentDoc.querySelector("body") as HTMLBodyElement;
-
   body.className === "modal-open" ? "" : "";
   body.style.overflow = "";
   body.style.padding = "";
@@ -71,8 +65,8 @@ const thumb = (url: string, path: string): void => {
     <FolderFormComponent v-if="buttonStore.isFolder"></FolderFormComponent>
     <div class="container text-center border-top px-1 mt-3 pt-2">
       <PlaceholderComponent v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
-          :is-loading="filemanagerStore.isLoading" :is-empty="!filemanagerStore.totalPages">
-        </PlaceholderComponent>
+        :is-loading="filemanagerStore.isLoading" :is-empty="!filemanagerStore.totalPages">
+      </PlaceholderComponent>
       <div class="row row-cols-sm-3 row-cols-lg-4 justify-content-md-center">
         <div v-for="(item, index) in filemanagerStore.filteredItem" :key="index">
           <div v-if="item.type === 'directory'" :id="`row-directory-${index}`" class="mb-3">
@@ -107,9 +101,7 @@ const thumb = (url: string, path: string): void => {
   </div>
 </template>
 <style scoped>
-
 .fa-5x {
   font-size: 7.5em;
 }
-
 </style>
