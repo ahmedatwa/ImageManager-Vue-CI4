@@ -20,6 +20,8 @@ onMounted(() => {
         <div v-for="(message, index) in filemanagerStore.messages" :key="index"
             class="alert alert-dismissible fade show mt-2" role="alert"
             :class="[index === 'error' ? 'alert-danger' : 'alert-success']">
+            <font-awesome-icon icon="triangle-exclamation" v-if="index === 'error'"/>
+            <font-awesome-icon icon="circle-check" v-if="index !== 'error'"/>
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" @click="buttonStore.isVisableAlert = false"
                 aria-label="Close"></button>

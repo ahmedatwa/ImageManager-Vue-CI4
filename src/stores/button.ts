@@ -13,7 +13,7 @@ export const usebuttonStore = defineStore("button", () => {
 
   // getters
   const createApiURL = computed((): string => {
-    return __API_URL__ + "/createFolder" + filemanagerStore.token;
+    return __API_URL__ + "/folder" + filemanagerStore.token;
   });
 
   const deleteURL = computed((): string => {
