@@ -19,7 +19,7 @@ const onUpload = (): void => {
     <div class="btn-group" role="group" aria-label="buttons Group">
       <span class="d-inline-block" tabindex="0" v-tooltip:arrow="'Parent'">
         <button type="button" class="btn btn-secondary" @click="buttonStore.goParent"
-          :disabled="filemanagerStore.currentPath === 'catalog'">
+          :disabled="filemanagerStore.currentPath.indexOf('/') === -1">
           <font-awesome-icon icon="arrow-up" />
         </button>
       </span>
