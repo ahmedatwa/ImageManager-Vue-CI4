@@ -26,7 +26,9 @@ export const createTooltip = {
           if (typeof binding.arg !== undefined && binding.arg === "arrow") {
             el.style.setProperty(
               "--v-tooltip-arrow-border-color",
-              "var(--v-tooltip-background-color) transparent transparent transparent",
+              "var(--v-tooltip-background-color) transparent transparent transparent"
+            );
+            el.style.setProperty(
               "--v-tooltip-arrow-top",
               "calc(var(--v-tooltip-top) - var(--v-tooltip-top-offset) + 8px)"
             );
