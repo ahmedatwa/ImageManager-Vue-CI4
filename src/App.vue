@@ -28,7 +28,7 @@ const thumb = (url: string, path: string): void => {
   const inputVal = parentDoc.getElementById(
     "input-image"
   ) as HTMLInputElement | null;
-// add vars to html element
+  // add vars to html element
   if (imageSrc != null && inputVal != null) {
     imageSrc.src = url;
     inputVal.value = path;
@@ -53,10 +53,15 @@ const thumb = (url: string, path: string): void => {
 </script>
 
 <template>
-  <div class="container mt-4">
-    <h5>
+  <div class="d-flex mx-6 mt-2">
+    <div class="me-auto p-2">
       <h5 class="modal-title"> {{ title }} <small class="fw-light">{{ appVersion }}</small></h5>
-    </h5>
+    </div>
+    <div class="p-2">
+      <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="container mt-2">
     <div class="row border-top pt-2">
       <ButtonGroupComponent></ButtonGroupComponent>
       <SearchFormComponent></SearchFormComponent>
@@ -67,7 +72,7 @@ const thumb = (url: string, path: string): void => {
       <PlaceholderComponent v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
         :is-loading="filemanagerStore.isLoading" :is-empty="!filemanagerStore.totalPages">
       </PlaceholderComponent>
-      <div class="row row-cols-sm-3 row-cols-lg-4 justify-content-md-center">
+      <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto">
         <div v-for="(item, index) in filemanagerStore.filteredItem" :key="index">
           <div v-if="item.type === 'directory'" :id="`row-directory-${index}`" class="mb-3">
             <div class="mb-1">
@@ -103,5 +108,9 @@ const thumb = (url: string, path: string): void => {
 <style scoped>
 .fa-5x {
   font-size: 7.5em;
+}
+.mx-6 {
+  margin-right: 3.5rem !important;
+  margin-left: 3.5rem !important;
 }
 </style>
