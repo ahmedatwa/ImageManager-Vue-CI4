@@ -13,12 +13,13 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   const messages = ref<object>([]);
 
   // getters
+  // retrieve token from URL if found 
   const token = computed((): string => {
     let url: string = location.toString();
 
     let query: string[] = url.split("?");
     let userToken: string[] = query.filter((word: string) => {
-      return word.includes("usertoken");
+      return word.includes(__CI_TOKEN__);
     });
     if (userToken[0]) {
       return "?" + userToken[0];
@@ -27,6 +28,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     }
   });
 
+  // list api controller method
   const apiUrlList = computed((): string => {
     return __API_URL__ + "/list" + token.value;
   });
