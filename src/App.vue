@@ -29,29 +29,15 @@ const thumb = (url: string, path: string): void => {
     "input-image"
   ) as HTMLInputElement | null;
   // add vars to html element
-  if (imageSrc != null && inputVal != null) {
+  if (imageSrc !== null && inputVal !== null) {
     imageSrc.src = url;
     inputVal.value = path;
   }
-
   // remove bootstrap modal
-  let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
-  if (modal != null) modal.remove();
-  // remove modal backdrop
-  let modalBackdrop = parentDoc.getElementsByClassName(
-    "modal-backdrop"
-  )[0] as HTMLDivElement;
-
-  if (modalBackdrop) modalBackdrop.remove();
-
-  // clear body attrs 
-  const body = parentDoc.querySelector("body") as HTMLBodyElement;
-  body.className === "modal-open" ? "" : "";
-  body.style.overflow = "";
-  body.style.padding = "";
+  closeBsModal()
 };
 
-const closeModal = (): void => {
+const closeBsModal = (): void => {
   let parentDoc = window.parent.document
   // remove bootstrap modal
   let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
@@ -59,10 +45,17 @@ const closeModal = (): void => {
     "modal-backdrop"
   )[0] as HTMLDivElement;
 
-  if (modal !== null && modalBackdrop !== null)
+  if (modal !== null && modalBackdrop !== null) {
     modalBackdrop.remove();
-  modal.remove();
-
+    modal.remove();
+  }
+  // clear body attrs 
+  const body = parentDoc.querySelector("body") as HTMLBodyElement;
+  if (body.className === "modal-open") {
+    body.className = ""
+  }
+  body.style.overflow = "";
+  body.style.padding = "";
 }
 </script>
 
@@ -72,7 +65,7 @@ const closeModal = (): void => {
       <h5 class="modal-title"> {{ title }} <small class="fw-light">{{ appVersion }}</small></h5>
     </div>
     <div class="p-2">
-      <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+      <button type="button" class="btn-close" @click="closeBsModal" aria-label="Close"></button>
     </div>
   </div>
   <div class="container mt-2">
