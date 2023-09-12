@@ -107,7 +107,9 @@ const thumb = (url: string, path: string): void => {
   </div>
 </template>
 <style scoped>
+
 .fa-5x {
   font-size: 7.5em;
 }
+
 </style>
