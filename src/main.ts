@@ -1,7 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import router from './router'
+import { createTooltip } from './directives/tooltip.ts'
 import App from "./App.vue";
+
 
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -29,7 +30,7 @@ library.add(
 
 const app = createApp(App);
 const pinia = createPinia();
+app.directive('tooltip', createTooltip )
 app.use(pinia);
-app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.mount("#filemanagerApp");

@@ -21,7 +21,7 @@ export const usebuttonStore = defineStore("button", () => {
   });
 
   const uploadURL = computed((): string => {
-    return __API_URL__ + "/upload" + filemanagerStore.token
+    return __API_URL__ + "/upload" + filemanagerStore.token;
   });
 
   // Actions
@@ -64,18 +64,23 @@ export const usebuttonStore = defineStore("button", () => {
       }),
     });
 
+    let json = await response.json();
+
     if (response.status === 400) {
-      let data = await response.json();
       isVisableAlert.value = true;
-      filemanagerStore.messages = data.messages;
+      filemanagerStore.messages = json.messages;
     }
 
     if (response.status === 200) {
-      let data = await response.json();
       isVisableAlert.value = true;
       isFolder.value = false;
       folder.value = "";
-      filemanagerStore.messages = data;
+      // CI 404 reponse status is 200
+      if (json.code === 404) {
+        filemanagerStore.messages = { error: json.code + ": " + json.message };
+      } else {
+        filemanagerStore.messages = json;
+      }
       if (filemanagerStore.currentPath) {
         filemanagerStore.getList(
           filemanagerStore.apiUrlList,
@@ -126,7 +131,7 @@ export const usebuttonStore = defineStore("button", () => {
 
     let response = await fetch(uploadURL.value, {
       method: "POST",
-      body: formData
+      body: formData,
     });
     if (response.status === 400) {
       let data = await response.json();
