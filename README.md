@@ -16,3 +16,10 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+# How to use 
+Codeigniter resource controller with routes have been included and could be used by placing them 
+in your Codeigniter directory 
+- run <code>npm install</code>
+- change <code>__API_URL__</code> from <code>vite.config.ts</code>
+-
