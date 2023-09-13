@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import { useFilemanagerStore } from '@stores/filemanager.ts'
-//import { onMounted } from 'vue';
 
 const filemanagerStore = useFilemanagerStore()
-
-// onMounted(() => {
-//     setTimeout(() => {
-//       filemanagerStore.isVisableAlert = false
-//     }, 10000);
-// })
 
 </script>
 <template>
