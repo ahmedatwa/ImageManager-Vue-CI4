@@ -20,6 +20,8 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 # How to use 
 Codeigniter resource controller with routes have been included and could be used by placing them 
 in your Codeigniter directory 
-- run <code>npm install</code>
-- change <code>__API_URL__</code> from <code>vite.config.ts</code>
--
+- Change `__API_URL__` from`vite.config.ts`
+- `npm install`
+- `npm run build`
+- Move the filemanagerjs folder to Codeigniter public folder
+- `<embed>` or `<iframe>` the `index.html` in filemanagerjs folder in your codeigniter View file ` Sample code is provided in Codeigniter Folder ` 
