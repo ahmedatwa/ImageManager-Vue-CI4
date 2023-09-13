@@ -8,7 +8,6 @@ export const usebuttonStore = defineStore("button", () => {
   const filemanagerStore = useFilemanagerStore();
   const isFolder = ref(false);
   const folder = ref("");
-  const isVisableAlert = ref(false);
   const deletPath = ref([]);
 
   // getters
@@ -70,12 +69,12 @@ export const usebuttonStore = defineStore("button", () => {
     let json = await response.json();
 
     if (response.status === 400) {
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert = true;
       filemanagerStore.messages = json.messages;
     }
 
     if (response.status === 200) {
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert = true;
       isFolder.value = false;
       folder.value = "";
       // CI 404 reponse status is 200
@@ -106,14 +105,14 @@ export const usebuttonStore = defineStore("button", () => {
 
     if (response.status === 400) {
       let data = await response.json();
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert  = true;
       filemanagerStore.messages = data.messages;
     }
 
     if (response.status === 200) {
       let data = await response.json();
 
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert  = true;
       deletPath.value = [];
       filemanagerStore.messages = data;
       filemanagerStore.getList(
@@ -138,12 +137,12 @@ export const usebuttonStore = defineStore("button", () => {
     });
     if (response.status === 400) {
       let data = await response.json();
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert  = true;
       filemanagerStore.messages = data.messages;
     }
     if (response.status === 200) {
       let data = await response.json();
-      isVisableAlert.value = true;
+      filemanagerStore.isVisableAlert  = true;
       filemanagerStore.messages = data;
       filemanagerStore.getList(
         filemanagerStore.apiUrlList,
@@ -161,6 +160,5 @@ export const usebuttonStore = defineStore("button", () => {
     deletPath,
     isFolder,
     folder,
-    isVisableAlert,
   };
 });

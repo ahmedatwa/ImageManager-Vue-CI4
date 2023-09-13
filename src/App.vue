@@ -4,7 +4,7 @@ import FolderFormComponent from "@components/FolderFormComponent.vue";
 import PaginationComponent from "@components/PaginationComponent.vue";
 import SearchFormComponent from "@components/SearchFormComponent.vue";
 import AlertComponent from "@components/AlertComponent.vue";
-import ButtonGroupComponent from "./components/ButtonGroupComponent.vue";
+import ButtonGroupComponent from "@components/ButtonGroupComponent.vue";
 
 import { ref, onMounted } from "vue";
 import { useFilemanagerStore } from "@stores/filemanager.ts";
@@ -72,7 +72,7 @@ const closeBsModal = (): void => {
     <div class="row border-top pt-2">
       <ButtonGroupComponent></ButtonGroupComponent>
       <SearchFormComponent></SearchFormComponent>
-      <AlertComponent v-if="buttonStore.isVisableAlert"></AlertComponent>
+      <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
     </div>
     <FolderFormComponent v-if="buttonStore.isFolder"></FolderFormComponent>
     <div class="container text-center border-top px-1 mt-3 pt-2">
@@ -80,7 +80,7 @@ const closeBsModal = (): void => {
         :is-loading="filemanagerStore.isLoading" :is-empty="!filemanagerStore.totalPages">
       </PlaceholderComponent>
       <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto">
-        <div v-for="(item, index) in filemanagerStore.filteredItem" :key="index">
+        <div v-for="(item, index) in filemanagerStore.filteredData" :key="index">
           <div v-if="item.type === 'directory'" :id="`row-directory-${index}`" class="mb-3">
             <div class="mb-1">
               <a @click.prevent="filemanagerStore.getList(item.href, item.path)" class="directory">

@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { useFilemanagerStore } from '@stores/filemanager.ts'
-import { usebuttonStore } from '@stores/button.ts'
-import { onMounted } from 'vue';
+//import { onMounted } from 'vue';
 
-const buttonStore = usebuttonStore()
 const filemanagerStore = useFilemanagerStore()
 
-
-onMounted(() => {
-    setTimeout(() => {
-        buttonStore.isVisableAlert = false
-    }, 5000);
-})
+// onMounted(() => {
+//     setTimeout(() => {
+//       filemanagerStore.isVisableAlert = false
+//     }, 10000);
+// })
 
 </script>
 <template>
@@ -23,7 +20,7 @@ onMounted(() => {
             <font-awesome-icon icon="triangle-exclamation" v-if="index === 'error'"/>
             <font-awesome-icon icon="circle-check" v-if="index !== 'error'"/>
             {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" @click="buttonStore.isVisableAlert = false"
+            <button type="button" class="btn-close" data-bs-dismiss="alert" @click="filemanagerStore.isVisableAlert = false"
                 aria-label="Close"></button>
         </div>
     </div>

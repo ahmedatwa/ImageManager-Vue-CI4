@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
+      outDir: './dist/filemanager-js',
       rollupOptions: {
         input: {
           main: resolve(__dirname, "index.html"),

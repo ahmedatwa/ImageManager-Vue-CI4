@@ -3,14 +3,25 @@ import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
+
   // state
   const currentPath = ref("");
   const filtername = ref("");
   const perPage = ref(9);
   const currentPage = ref(1);
   const isLoading = ref(false);
-  const data = ref<any[]>([]);
+  const isVisableAlert = ref(false);
   const messages = ref<object>([]);
+
+ type responseData = {
+  name: string;
+  href: string;
+  type: string;
+  path: string;
+  thumb: string;
+ }
+
+  const data = ref<responseData[] | []>([]);
 
   // getters
   // retrieve token from URL if found 
@@ -37,10 +48,10 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     return Math.ceil(data.value.length / perPage.value);
   });
 
-  const filteredItem = computed((): any => {
-    if (!data.value) return;
+  const filteredData = computed((): responseData[] => {
+    if (data.value.length === 0) return [];
     return data.value
-      .filter((item: any) => {
+      .filter((item: responseData) => {
         return item.name.toLowerCase().includes(filtername.value.toLowerCase());
       })
       .filter((_, index: number) => {
@@ -75,12 +86,14 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       data.value = resource;
       isLoading.value = false;
     } catch (error) {
+      isLoading.value = false;
+      isVisableAlert.value = true
       messages.value = { error: error };
     }
   };
 
   const nextPage = (): void => {
-    if (currentPage.value * totalPages.value < filteredItem.value.length)
+    if (currentPage.value * totalPages.value < filteredData.value.length)
       currentPage.value++;
   };
   const previousPage = (): void => {
@@ -95,13 +108,14 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     data,
     totalPages,
     messages,
-    filteredItem,
+    filteredData,
     currentPage,
     currentPath,
     filtername,
     apiUrlList,
     perPage,
     isLoading,
+    isVisableAlert,
     getList,
     previousPage,
     paginate,
