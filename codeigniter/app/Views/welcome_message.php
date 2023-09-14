@@ -38,7 +38,7 @@
         <div class="card-body">
           <button type="button" data-filemanager-toggle="image" data-filemanager-thumb="thumb-image-1" data-filemanager-input="input-image-1" class="btn btn-primary btn-sm btn-block"><i
               class="fa-solid fa-pencil"></i> Edit</button>
-          <button type="button" data-filemanager-toggle="clear" class="btn btn-warning btn-sm btn-block"><i
+          <button type="button" data-filemanager-toggle="clear" data-filemanager-thumb="thumb-image-1" data-filemanager-input="input-image-1"  class="btn btn-warning btn-sm btn-block"><i
               class="fa-regular fa-trash-can"></i> Clear</button>
         </div>
       </div>
@@ -52,7 +52,7 @@
         <div class="card-body">
           <button type="button" data-filemanager-toggle="image" data-filemanager-thumb="thumb-image" data-filemanager-input="input-image" class="btn btn-primary btn-sm btn-block"><i
               class="fa-solid fa-pencil"></i> Edit</button>
-          <button type="button" data-filemanager-toggle="clear" class="btn btn-warning btn-sm btn-block"><i
+          <button type="button" data-filemanager-toggle="clear" data-filemanager-thumb="#thumb-image" data-filemanager-input="#input-image" class="btn btn-warning btn-sm btn-block"><i
               class="fa-regular fa-trash-can"></i> Clear</button>
         </div>
       </div>
@@ -82,6 +82,19 @@
         }
       });
     });
+
+    // Clear 
+    $(document).on('click', '[data-filemanager-toggle=\'clear\']', function () {
+    var element = this;
+    
+
+    // Images
+    var thumb = $(this).attr('data-filemanager-thumb');
+
+    $(thumb).attr('src', '<?=$thumb;?>');
+
+    $($(this).attr('data-filemanager-input')).val('');
+});
   </script>
 </body>
 </html>
