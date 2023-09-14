@@ -13,17 +13,17 @@ export const usebuttonStore = defineStore("button", () => {
   // getters
   // create folder api controller method
   const createApiURL = computed((): string => {
-    return __API_URL__ + "/folder" + filemanagerStore.token;
+    return __API_URL__ + "/folder" + filemanagerStore.tokenUrlParam;
   });
 
   // delete api controller method
   const deleteURL = computed((): string => {
-    return __API_URL__ + "/doDelete" + filemanagerStore.token;
+    return __API_URL__ + "/doDelete" + filemanagerStore.tokenUrlParam;
   });
 
   // upload api controller method
   const uploadURL = computed((): string => {
-    return __API_URL__ + "/upload" + filemanagerStore.token;
+    return __API_URL__ + "/upload" + filemanagerStore.tokenUrlParam;
   });
 
   // Actions

@@ -3,7 +3,6 @@ import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
-
   // state
   const currentPath = ref("");
   const filtername = ref("");
@@ -13,35 +12,56 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   const isVisableAlert = ref(false);
   const messages = ref<object>([]);
 
- type responseData = {
-  name: string;
-  href: string;
-  type: string;
-  path: string;
-  thumb: string;
- }
+  type responseData = {
+    name: string;
+    href: string;
+    type: string;
+    path: string;
+    thumb: string;
+  };
 
   const data = ref<responseData[] | []>([]);
 
-  // getters
-  // retrieve token from URL if found 
-  const token = computed((): string => {
-    let url: string = location.toString();
+  const getUrlParam = (key: string): string | null | undefined => {
+    let loc = location.toString();
+    //?usertoken=token&thumb=thumbparam&input=inputparam
+    let parts: string[] | null = loc.split("?");
 
-    let query: string[] = url.split("?");
-    let userToken: string[] = query.filter((word: string) => {
-      return word.includes(__CI_TOKEN__);
-    });
-    if (userToken[0]) {
-      return "?" + userToken[0];
+    if (parts.at(1)) {
+      let searchParams = new URLSearchParams(parts.at(1));
+      if (searchParams.has(key) !== false) {
+        return searchParams.get(key);
+      }
+    }
+  };
+
+  const tokenUrlParam = computed(() => {
+    if (getUrlParam(__CI_TOKEN__) !== undefined) {
+      return "?" + getUrlParam(__CI_TOKEN__);
     } else {
       return "?";
     }
   });
 
+  const thumbUrlParam = computed(() => {
+    if (getUrlParam("thumb") !== undefined) {
+      return "&" + getUrlParam("thumb");
+    } else {
+      return "";
+    }
+  });
+
+  const inputUrlParam = computed(() => {
+    if (getUrlParam("input") !== undefined) {
+      return "&" + getUrlParam("input");
+    } else {
+      return "";
+    }
+  });
+  console.log(tokenUrlParam.value);
   // list api controller method
   const apiUrlList = computed((): string => {
-    return __API_URL__ + "/list" + token.value;
+    return __API_URL__ + "/list" + tokenUrlParam.value;
   });
 
   const totalPages = computed((): number => {
@@ -87,7 +107,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       isLoading.value = false;
     } catch (error) {
       isLoading.value = false;
-      isVisableAlert.value = true
+      isVisableAlert.value = true;
       messages.value = { error: error };
     }
   };
@@ -104,7 +124,9 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   };
 
   return {
-    token,
+    tokenUrlParam,
+    thumbUrlParam,
+    inputUrlParam,
     data,
     totalPages,
     messages,

@@ -21,13 +21,13 @@ onMounted(() => {
 
 // for CI to target the input and img element
 const thumb = (url: string, path: string): void => {
-  let parentDoc = window.parent.document
-  const imageSrc = parentDoc.getElementById(
-    "thumb-image"
-  ) as HTMLImageElement | null;
-  const inputVal = parentDoc.getElementById(
-    "input-image"
-  ) as HTMLInputElement | null;
+  let parentDoc = window.parent.document as Document
+  let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
+  let imgThumbID = modal.getAttribute("data-filemanager-thumb") as string
+  let imgInputID = modal.getAttribute("data-filemanager-input") as string
+  const imageSrc = parentDoc.getElementById(imgThumbID) as HTMLImageElement | null;
+  const inputVal = parentDoc.getElementById(imgInputID) as HTMLInputElement | null
+
   // add vars to html element
   if (imageSrc !== null && inputVal !== null) {
     imageSrc.src = url;
@@ -38,9 +38,9 @@ const thumb = (url: string, path: string): void => {
 };
 
 const closeBsModal = (): void => {
-  let parentDoc = window.parent.document
-  // remove bootstrap modal
+  let parentDoc = window.parent.document as Document
   let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
+  // remove bootstrap modal
   let modalBackdrop = parentDoc.getElementsByClassName(
     "modal-backdrop"
   )[0] as HTMLDivElement;
