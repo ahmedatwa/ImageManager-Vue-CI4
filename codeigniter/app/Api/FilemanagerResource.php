@@ -11,14 +11,14 @@ class FilemanagerResource extends ResourceController
         $data['headingTitle'] = lang('filemanager.headingTitle');
 
         if($this->request->getVar('thumb')) {
-            $data['thumb'] = esc($this->request->getVar('thumb'));
+            $data['thumb'] = $this->request->getVar('thumb', FILTER_SANITIZE_SPECIAL_CHARS);
         } else {
             $data['thumb'] = '';
         }
 
 
         if($this->request->getVar('input')) {
-            $data['input'] = esc($this->request->getVar('input'));
+            $data['input'] = $this->request->getVar('input', FILTER_SANITIZE_SPECIAL_CHARS);
         } else {
             $data['input'] = '';
         }
@@ -31,6 +31,8 @@ class FilemanagerResource extends ResourceController
 
     public function list()
     {
+        helper('text');
+        
         $json = [];
 
         helper('filesystem');
@@ -67,8 +69,8 @@ class FilemanagerResource extends ResourceController
                 $json[] = [
                     'name' => $basename,
                     'type'  => 'directory',
-                    'path'  => substr($directory . $path, strlen($base)),
-                    'href'  => site_url('filemanager/list?usertoken=' . session()->get('usertoken')) . '&directory=' . rtrim(substr($directory . $path, strlen($base)), '/')
+                    'path'  => reduce_double_slashes(substr($directory . $path, strlen($base))),
+                    'href'  => site_url('api/filemanager/list?usertoken=' . session()->get('usertoken')) . '&directory=' . rtrim(substr($directory . $path, strlen($base)), '/')
                 ];
             }
 
@@ -79,9 +81,9 @@ class FilemanagerResource extends ResourceController
                 $json[] = [
                     'name'  => $basename,
                     'type'  => 'image',
-                    'path'  => substr($directory . $path, strlen($base)),
+                    'path'  => reduce_double_slashes(substr($directory . $path, strlen($base))),
                     'href'  => base_url() .'images/' . substr($directory, strlen($base)) . $basename,
-                    'thumb' =>  $thumb,
+                    'thumb' =>  reduce_double_slashes($thumb),
                 ];
             }
         }
