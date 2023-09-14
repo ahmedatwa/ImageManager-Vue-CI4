@@ -95,7 +95,6 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     path?: string
   ): Promise<void> => {
     isLoading.value = true;
-    console.log(path)
     if (typeof path !== 'undefined') {
       urlVal = apiUrlList.value + "&directory=" + path;
       currentPath.value = path;
