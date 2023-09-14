@@ -23,10 +23,10 @@ onMounted(() => {
 const thumb = (url: string, path: string): void => {
   let parentDoc = window.parent.document as Document
   let modal = parentDoc.getElementById("filemanagerModal") as HTMLDivElement;
-  let imgThumbID = modal.getAttribute("data-filemanager-thumb") as string
-  let imgInputID = modal.getAttribute("data-filemanager-input") as string
-  const imageSrc = parentDoc.getElementById(imgThumbID) as HTMLImageElement | null;
-  const inputVal = parentDoc.getElementById(imgInputID) as HTMLInputElement | null
+  let imgThumbAttr = modal.getAttribute("data-filemanager-thumb") as string
+  let inputAttr = modal.getAttribute("data-filemanager-input") as string
+  const imageSrc = parentDoc.getElementById(imgThumbAttr) as HTMLImageElement | null;
+  const inputVal = parentDoc.getElementById(inputAttr) as HTMLInputElement | null
 
   // add vars to html element
   if (imageSrc !== null && inputVal !== null) {

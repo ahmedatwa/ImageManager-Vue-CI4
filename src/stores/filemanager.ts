@@ -24,7 +24,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
 
   const getUrlParam = (key: string): string | null | undefined => {
     let loc = location.toString();
-    //?usertoken=token&thumb=thumbparam&input=inputparam
+    //?usertoken=1234&thumb=thumbparam&input=inputparam
     let parts: string[] | null = loc.split("?");
 
     if (parts.at(1)) {
@@ -95,7 +95,8 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     path?: string
   ): Promise<void> => {
     isLoading.value = true;
-    if (typeof path !== "undefined") {
+    console.log(path)
+    if (typeof path !== 'undefined') {
       urlVal = apiUrlList.value + "&directory=" + path;
       currentPath.value = path;
     }
