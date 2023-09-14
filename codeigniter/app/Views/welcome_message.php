@@ -34,7 +34,7 @@
       <div class="card image" style="width: 12rem;">
         <img src="<?=$thumb;?>" alt="" title="" id="thumb-image-1"
           class="card-img-top" />
-        <input type="hidden" name="image" value="{{ image }}" id="input-image-1" />
+        <input type="hidden" name="image" value="" id="input-image-1" />
         <div class="card-body">
           <button type="button" data-filemanager-toggle="image" data-filemanager-thumb="thumb-image-1" data-filemanager-input="input-image-1" class="btn btn-primary btn-sm btn-block"><i
               class="fa-solid fa-pencil"></i> Edit</button>
@@ -48,7 +48,8 @@
       <div class="card image" style="width: 12rem;">
         <img src="<?=$thumb;?>" alt="" title="" id="thumb-image"
           class="card-img-top" />
-        <input type="hidden" name="image" value="{{ image }}" id="input-image" />
+          
+        <input type="text" name="image" value="" id="input-image" />
         <div class="card-body">
           <button type="button" data-filemanager-toggle="image" data-filemanager-thumb="thumb-image" data-filemanager-input="input-image" class="btn btn-primary btn-sm btn-block"><i
               class="fa-solid fa-pencil"></i> Edit</button>
