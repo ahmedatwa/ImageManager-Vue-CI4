@@ -35,7 +35,9 @@ export default defineConfig(({ mode }) => {
       __APP_NAME__: JSON.stringify("Filemanager"),
       __APP_VERSION__: JSON.stringify("v1.2"),
       __API_URL__: JSON.stringify("http://localhost/project-root/public/api/filemanager"),
-      __CI_TOKEN__: JSON.stringify("usertoken")
+      __CI_TOKEN__: JSON.stringify("usertoken"),
+      __CI_THUMB__: JSON.stringify("thumb"),
+      __CI_INPUT__: JSON.stringify("input")
     },
   };
 });

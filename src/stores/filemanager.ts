@@ -44,21 +44,21 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   });
 
   const thumbUrlParam = computed(() => {
-    if (getUrlParam("thumb") !== undefined) {
-      return "&" + getUrlParam("thumb");
+    if (getUrlParam(__CI_THUMB__) !== undefined) {
+      return "&" + getUrlParam(__CI_THUMB__);
     } else {
       return "";
     }
   });
 
   const inputUrlParam = computed(() => {
-    if (getUrlParam("input") !== undefined) {
-      return "&" + getUrlParam("input");
+    if (getUrlParam(__CI_INPUT__) !== undefined) {
+      return "&" + getUrlParam(__CI_INPUT__);
     } else {
       return "";
     }
   });
-  console.log(tokenUrlParam.value);
+
   // list api controller method
   const apiUrlList = computed((): string => {
     return __API_URL__ + "/list" + tokenUrlParam.value;

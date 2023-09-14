@@ -23,5 +23,5 @@ in your Codeigniter directory
 - Change `__API_URL__` from`vite.config.ts`
 - `npm install`
 - `npm run build`
-- Move the filemanagerjs folder to Codeigniter public folder
-- `<embed>` or `<iframe>` the `index.html` in filemanagerjs folder in your codeigniter View file ` Sample code is provided in Codeigniter Folder ` 
+- Move the filemanager-js folder to Codeigniter public folder
+- `<embed>` or `<iframe>` the `index.html` in filemanager-js folder in your codeigniter View file ` Sample code is provided in Codeigniter Folder ` 
