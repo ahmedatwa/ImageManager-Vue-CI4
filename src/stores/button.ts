@@ -7,7 +7,6 @@ export const usebuttonStore = defineStore("button", () => {
   // state
   const filemanagerStore = useFilemanagerStore();
   const isFolder = ref(false);
-  const folder = ref("");
   const deletPath = ref([]);
 
   // getters
@@ -54,14 +53,14 @@ export const usebuttonStore = defineStore("button", () => {
     }
   };
 
-  const createFolder = async (): Promise<void> => {
+  const createFolder = async (form: { folderName: string }): Promise<void> => {
     let response = await fetch(createApiURL.value, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        folder: folder.value,
+        folder: form.folderName,
         directory: filemanagerStore.currentPath,
       }),
     });
@@ -76,7 +75,7 @@ export const usebuttonStore = defineStore("button", () => {
     if (response.status === 200) {
       filemanagerStore.isVisableAlert = true;
       isFolder.value = false;
-      folder.value = "";
+      //folder.value = "";
       // CI 404 reponse status is 200
       if (json.code === 404) {
         filemanagerStore.messages = { error: json.code + ": " + json.message };
@@ -105,14 +104,14 @@ export const usebuttonStore = defineStore("button", () => {
 
     if (response.status === 400) {
       let data = await response.json();
-      filemanagerStore.isVisableAlert  = true;
+      filemanagerStore.isVisableAlert = true;
       filemanagerStore.messages = data.messages;
     }
 
     if (response.status === 200) {
       let data = await response.json();
 
-      filemanagerStore.isVisableAlert  = true;
+      filemanagerStore.isVisableAlert = true;
       deletPath.value = [];
       filemanagerStore.messages = data;
       filemanagerStore.getList(
@@ -137,12 +136,12 @@ export const usebuttonStore = defineStore("button", () => {
     });
     if (response.status === 400) {
       let data = await response.json();
-      filemanagerStore.isVisableAlert  = true;
+      filemanagerStore.isVisableAlert = true;
       filemanagerStore.messages = data.messages;
     }
     if (response.status === 200) {
       let data = await response.json();
-      filemanagerStore.isVisableAlert  = true;
+      filemanagerStore.isVisableAlert = true;
       filemanagerStore.messages = data;
       filemanagerStore.getList(
         filemanagerStore.apiUrlList,
@@ -159,6 +158,5 @@ export const usebuttonStore = defineStore("button", () => {
     remove,
     deletPath,
     isFolder,
-    folder,
   };
 });

@@ -1,31 +1,48 @@
 <script setup lang="ts">
-import { useFilemanagerStore } from '@stores/filemanager.ts'
-
-const filemanagerStore = useFilemanagerStore()
+const props = defineProps<{
+  previousPage: Function;
+  nextPage: Function;
+  paginate: Function;
+  currentPage: number;
+  totalPages: number;
+}>();
 </script>
 <template>
-    <div class="modal-footer">
-        <nav>
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" @click="filemanagerStore.previousPage" aria-label="Previous"
-                        :class="{ 'disabled': filemanagerStore.currentPage === 1 }">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item" v-for="n in filemanagerStore.totalPages">
-                    <a href="#" :class="{ 'active': filemanagerStore.currentPage == n }" class="page-link"
-                        @click.prevent="filemanagerStore.paginate(n)">{{
-                            n
-                        }}</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" @click="filemanagerStore.nextPage" aria-label="Next"
-                        :class="{ 'disabled': filemanagerStore.currentPage == filemanagerStore.totalPages }">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+  <div class="modal-footer">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="#"
+            @click="props.previousPage"
+            aria-label="Previous"
+            :class="{ disabled: props.currentPage === 1 }"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="n in props.totalPages">
+          <a
+            href="#"
+            :class="{ active: props.currentPage == n }"
+            class="page-link"
+            @click.prevent="props.paginate(n)"
+            >{{ n }}</a
+          >
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="#"
+            @click="props.nextPage"
+            aria-label="Next"
+            :class="{ disabled: props.currentPage == props.totalPages }"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>

@@ -1,23 +1,34 @@
 <script setup lang="ts">
-import { useFilemanagerStore } from '@stores/filemanager.ts'
+import { useFilemanagerStore } from "@stores/filemanager.ts";
 
-const filemanagerStore = useFilemanagerStore()
-
+const filemanagerStore = useFilemanagerStore();
 </script>
 <template>
-    <Transition name="slide-fade">
-        <div>
-        <div v-for="(message, index) in filemanagerStore.messages" :key="index"
-            class="alert alert-dismissible fade show mt-2" role="alert"
-            :class="[index === 'error' ? 'alert-danger' : 'alert-success']">
-            <font-awesome-icon icon="triangle-exclamation" v-if="index === 'error'"/>
-            <font-awesome-icon icon="circle-check" v-if="index !== 'error'"/>
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" @click="filemanagerStore.isVisableAlert = false"
-                aria-label="Close"></button>
-        </div>
+  <Transition name="slide-fade">
+    <div>
+      <div
+        v-for="(message, index) in filemanagerStore.messages"
+        :key="index"
+        class="alert alert-dismissible fade show mt-2"
+        role="alert"
+        :class="[index === 'error' ? 'alert-danger' : 'alert-success']"
+      >
+        <font-awesome-icon
+          icon="triangle-exclamation"
+          v-if="index === 'error'"
+        />
+        <font-awesome-icon icon="circle-check" v-if="index !== 'error'" />
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          @click="filemanagerStore.isVisableAlert = false"
+          aria-label="Close"
+        ></button>
+      </div>
     </div>
-    </Transition>
+  </Transition>
 </template>
 <style scoped>
 .slide-fade-enter-active {
