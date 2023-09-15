@@ -175,7 +175,7 @@ const closeBsModal = (): void => {
       </Transition>
       </div>
       <PaginationComponent
-        v-if="filemanagerStore.totalPages > 1"
+        v-if="filemanagerStore.isPagination"
         :currentPage="filemanagerStore.currentPage"
         :previousPage="filemanagerStore.previousPage"
         :nextPage="filemanagerStore.nextPage"

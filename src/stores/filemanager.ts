@@ -11,6 +11,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   const isLoading = ref(false);
   const isVisableAlert = ref(false);
   const messages = ref<object>([]);
+  const isPagination = ref(false);
 
   const getUrlParam = (key: string): string | null | undefined => {
     let loc = location.toString();
@@ -81,14 +82,21 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     return filter;
   });
 
+  watch(
+    () => filteredData.value.length,
+    (newLen) => {
+      if (newLen > 1) {
+        isPagination.value = true;
+      } else {
+        isPagination.value = false
+      }
+    }
+  );
   // reset current page on status change
   watch(
     [() => filtername.value, () => currentPath.value],
-    ([__newFilter, __newPath]) => {
-      currentPage.value = 1;
-      if(filteredData.value.length === 0) {
-        totalPages.value = 0
-      }
+    ([newFilter, newPath]) => {
+      if (newFilter || newPath) currentPage.value = 1;
     }
   );
 
@@ -143,6 +151,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     perPage,
     isLoading,
     isVisableAlert,
+    isPagination,
     getList,
     previousPage,
     paginate,
