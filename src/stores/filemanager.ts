@@ -6,7 +6,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   // state
   const currentPath = ref("");
   const filtername = ref("");
-  const perPage = ref(9);
+  const perPage = ref(15);
   const currentPage = ref(1);
   const isLoading = ref(false);
   const isVisableAlert = ref(false);
