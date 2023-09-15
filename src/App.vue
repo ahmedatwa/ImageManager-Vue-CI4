@@ -64,7 +64,7 @@ const closeBsModal = (): void => {
 </script>
 
 <template>
-  <div class="d-flex mx-6 mt-2">
+  <div class="title-container d-flex mt-2">
     <div class="me-auto p-2">
       <h5 class="modal-title">
         {{ title }} <small class="fw-light">{{ appVersion }}</small>
@@ -79,19 +79,19 @@ const closeBsModal = (): void => {
       ></button>
     </div>
   </div>
-  <div class="container mt-2">
-    <div class="row border-top pt-2">
+  <div class="container-fluid mt-2">
+    <section class="row border-top pt-2">
       <ButtonGroupComponent
         :currentPath="filemanagerStore.currentPath"
       ></ButtonGroupComponent>
       <SearchFormComponent></SearchFormComponent>
       <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
-    </div>
+    </section>
     <FolderFormComponent
       v-if="buttonStore.isFolder"
       :create-folder="buttonStore.createFolder"
     ></FolderFormComponent>
-    <div class="container text-center border-top px-1 mt-3 pt-2">
+    <div class="text-center border-top px-1 mt-3 pt-2">
       <PlaceholderComponent
         v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
         :is-loading="filemanagerStore.isLoading"
@@ -102,7 +102,7 @@ const closeBsModal = (): void => {
         class="row row-cols-sm-3 row-cols-lg-4 mx-auto"
         v-if="filemanagerStore.filteredData.length"
       >
-        <div
+        <div id="filter-container"
           v-for="(item, index) in filemanagerStore.filteredData"
           :key="index"
         >
