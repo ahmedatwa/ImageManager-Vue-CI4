@@ -179,3 +179,8 @@ const closeBsModal = (): void => {
     ></PaginationComponent>
   </div>
 </template>
+<style scoped>
+.card{
+  width: 17rem;
+}
+</style>
