@@ -12,7 +12,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <section class="col-9 mb-4 m-auto">
+  <section class="col-9 mt-3 justify-content-center mx-auto">
     <form @submit.prevent="props.createFolder(form)" enctype="multipart/form-data">
       <div class="input-group">
         <input

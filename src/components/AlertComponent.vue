@@ -5,7 +5,7 @@ const filemanagerStore = useFilemanagerStore();
 </script>
 <template>
   <Transition name="slide-fade">
-    <section>
+    <section class="mt-3 justify-content-center mx-auto">
       <div
         v-for="(message, index) in filemanagerStore.messages"
         :key="index"

@@ -456,7 +456,7 @@ h5,
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: var(--bs-secondary-bg);
 }
-.modal-footer {
+.footer {
   display: flex;
   flex-shrink: 0;
   flex-wrap: wrap;
