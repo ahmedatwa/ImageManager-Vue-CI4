@@ -103,7 +103,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       const response = await fetch(urlVal);
       const resource = await response.json();
       data.value = resource;
-      //isLoading.value = false;
+      isLoading.value = false;
     } catch (error) {
       isLoading.value = false;
       isVisableAlert.value = true;

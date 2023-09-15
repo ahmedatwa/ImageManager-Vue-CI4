@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
     <div v-if="props.isEmpty">
       {{ textEmpty }}
     </div>
-    <div class="overlay" v-if="props.isLoading">
+    <div v-if="props.isLoading">
       <span class="loader"></span>
     </div>
   </section>
@@ -31,38 +31,30 @@ const props = withDefaults(defineProps<Props>(), {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.overlay {
-  background: #333;
-  color: #666666;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 5000;
-  top: 0;
-  left: 0;
-  float: left;
-  text-align: center;
-  padding-top: 35%;
-  opacity: 0.5;
-}
+
 .loader {
-  --d:22px;
-  width: 4px;
-  height: 4px;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #1e91cf;
+  border-bottom-color: transparent;
   border-radius: 50%;
-  color: #232047;
-  box-shadow: 
-    calc(1*var(--d))      calc(0*var(--d))     0 0,
-    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
-    calc(0*var(--d))      calc(1*var(--d))     0 2px,
-    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
-    calc(-1*var(--d))     calc(0*var(--d))     0 4px,
-    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
-    calc(0*var(--d))      calc(-1*var(--d))    0 6px;
-  animation: s7 1s infinite steps(8);
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: #1e91cf;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
-@keyframes s7 {
-  100% {transform: rotate(1turn)}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

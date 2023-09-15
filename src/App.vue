@@ -84,9 +84,7 @@ const closeBsModal = (): void => {
       <ButtonGroupComponent
         :currentPath="filemanagerStore.currentPath"
       ></ButtonGroupComponent>
-      <SearchFormComponent
-        :filtername="filemanagerStore.filtername"
-      ></SearchFormComponent>
+      <SearchFormComponent></SearchFormComponent>
       <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
     </div>
     <FolderFormComponent
@@ -94,14 +92,16 @@ const closeBsModal = (): void => {
       :create-folder="buttonStore.createFolder"
     ></FolderFormComponent>
     <div class="container text-center border-top px-1 mt-3 pt-2">
-       
       <PlaceholderComponent
         v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
         :is-loading="filemanagerStore.isLoading"
         :is-empty="!filemanagerStore.totalPages"
       >
-      </PlaceholderComponent> 
-      <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto" v-if="filemanagerStore.filteredData.length">
+      </PlaceholderComponent>
+      <div
+        class="row row-cols-sm-3 row-cols-lg-4 mx-auto"
+        v-if="filemanagerStore.filteredData.length"
+      >
         <div
           v-for="(item, index) in filemanagerStore.filteredData"
           :key="index"

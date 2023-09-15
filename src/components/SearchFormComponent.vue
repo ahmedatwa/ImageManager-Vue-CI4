@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
-  filtername: string;
-}>();
+import { useFilemanagerStore } from "@stores/filemanager.ts";
+
+const filemanagerStore = useFilemanagerStore();
 </script>
 
 <template>
@@ -11,7 +11,7 @@ const props = defineProps<{
         type="text"
         class="form-control"
         placeholder="Search..."
-        v-model="props.filtername"
+        v-model="filemanagerStore.filtername"
       />
     </form>
   </section>
