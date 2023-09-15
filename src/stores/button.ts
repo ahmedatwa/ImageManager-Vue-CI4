@@ -75,20 +75,16 @@ export const usebuttonStore = defineStore("button", () => {
     if (response.status === 200) {
       filemanagerStore.isVisableAlert = true;
       isFolder.value = false;
-      // CI 404 reponse status is 200
+      // CI 404 reponse status is 200 for no controller method
       if (json.code === 404) {
         filemanagerStore.messages = { error: json.code + ": " + json.message };
       } else {
         filemanagerStore.messages = json;
       }
-      if (filemanagerStore.currentPath) {
-        filemanagerStore.getList(
-          filemanagerStore.apiUrlList,
-          filemanagerStore.currentPath
-        );
-      } else {
-        filemanagerStore.getList(filemanagerStore.apiUrlList);
-      }
+      filemanagerStore.getList(
+        filemanagerStore.apiUrlList,
+        filemanagerStore.currentPath
+      );
     }
   };
 

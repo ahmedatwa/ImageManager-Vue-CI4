@@ -3,10 +3,10 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="ratio ratio-1x1">
-          <!-- <iframe src="filemanager-js/index.html" width="600px" height="500px"></iframe> -->
+          <!-- <iframe src="imagemanager-js/index.html" width="600px" height="500px"></iframe> -->
           <embed
             type="text/html"
-            src="filemanager-js/index.html"
+            src="imagemanager-js/index.html"
             width="750"
             height="350"
           />
