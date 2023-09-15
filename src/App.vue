@@ -80,7 +80,7 @@ const closeBsModal = (): void => {
     </div>
   </div>
   <div class="container-fluid mt-2">
-    <section class="row border-top pt-2">
+    <section class="row border-top border-bottom py-2">
       <ButtonGroupComponent
         :currentPath="filemanagerStore.currentPath"
       ></ButtonGroupComponent>
@@ -91,7 +91,7 @@ const closeBsModal = (): void => {
       v-if="buttonStore.isFolder"
       :create-folder="buttonStore.createFolder"
     ></FolderFormComponent>
-    <div class="text-center border-top px-1 mt-3 pt-2">
+    <div class="text-center px-1 mt-3 pt-2">
       <PlaceholderComponent
         v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
         :is-loading="filemanagerStore.isLoading"
