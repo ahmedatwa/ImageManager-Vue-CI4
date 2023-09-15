@@ -1,5 +1,5 @@
 // stores/filemanager.ts
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, nextTick } from "vue";
 import { defineStore } from "pinia";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
@@ -104,6 +104,8 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       const resource = await response.json();
       data.value = resource;
       isLoading.value = false;
+      await nextTick()
+      filtername.value = ''
     } catch (error) {
       isLoading.value = false;
       isVisableAlert.value = true;
