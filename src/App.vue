@@ -67,7 +67,7 @@ const closeBsModal = (): void => {
     <div class="title-container d-flex mt-2">
       <div class="me-auto p-2">
         <h5 class="modal-title">
-          {{ title }} <small class="fw-light">{{ appVersion }}</small>
+          <font-awesome-icon icon="images" /> {{ title }} <small class="fw-light">{{ appVersion }}</small>
         </h5>
       </div>
       <div class="p-2">

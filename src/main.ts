@@ -18,10 +18,12 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faImages } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(
   faArrowUp,
+  faImages,
   faTriangleExclamation,
   faCircleCheck,
   faArrowsRotate,
