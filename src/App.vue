@@ -94,13 +94,14 @@ const closeBsModal = (): void => {
       :create-folder="buttonStore.createFolder"
     ></FolderFormComponent>
     <div class="container text-center border-top px-1 mt-3 pt-2">
+       
       <PlaceholderComponent
         v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
         :is-loading="filemanagerStore.isLoading"
         :is-empty="!filemanagerStore.totalPages"
       >
-      </PlaceholderComponent>
-      <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto">
+      </PlaceholderComponent> 
+      <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto" v-if="filemanagerStore.filteredData.length">
         <div
           v-for="(item, index) in filemanagerStore.filteredData"
           :key="index"
@@ -178,13 +179,3 @@ const closeBsModal = (): void => {
     ></PaginationComponent>
   </div>
 </template>
-<style scoped>
-.fa-5x {
-  font-size: 7.5em;
-}
-
-.mx-6 {
-  margin-right: 3.5rem !important;
-  margin-left: 3.5rem !important;
-}
-</style>

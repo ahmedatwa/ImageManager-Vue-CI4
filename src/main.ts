@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { createTooltip } from "./directives/tooltip.ts";
+import "./assets/styles.css"
 import App from "./App.vue";
 
 /* import the fontawesome core */

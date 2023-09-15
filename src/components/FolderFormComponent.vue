@@ -12,8 +12,8 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div class="col-9 mb-4 m-auto" enctype="multipart/form-data">
-    <form @submit.prevent="props.createFolder(form)" class="mt-2">
+  <section class="col-9 mb-4 m-auto">
+    <form @submit.prevent="props.createFolder(form)" enctype="multipart/form-data">
       <div class="input-group">
         <input
           type="text"
@@ -30,5 +30,5 @@ const props = defineProps<{
         </button>
       </div>
     </form>
-  </div>
+  </section>
 </template>

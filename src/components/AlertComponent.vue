@@ -5,7 +5,7 @@ const filemanagerStore = useFilemanagerStore();
 </script>
 <template>
   <Transition name="slide-fade">
-    <div>
+    <section>
       <div
         v-for="(message, index) in filemanagerStore.messages"
         :key="index"
@@ -17,7 +17,7 @@ const filemanagerStore = useFilemanagerStore();
           icon="triangle-exclamation"
           v-if="index === 'error'"
         />
-        <font-awesome-icon icon="circle-check" v-if="index !== 'error'" />
+        <font-awesome-icon icon="circle-check" v-else />
         {{ message }}
         <button
           type="button"
@@ -27,21 +27,6 @@ const filemanagerStore = useFilemanagerStore();
           aria-label="Close"
         ></button>
       </div>
-    </div>
+    </section>
   </Transition>
 </template>
-<style scoped>
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
-}
-</style>

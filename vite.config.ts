@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: './dist/filemanager-js',
+      outDir: './dist/imagemanager-js',
       rollupOptions: {
         input: {
           main: resolve(__dirname, "index.html"),
@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
     plugins: [vue()],
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
-      __APP_NAME__: JSON.stringify("Filemanager"),
+      __APP_NAME__: JSON.stringify("Image Manager"),
       __APP_VERSION__: JSON.stringify("v1.2.1"),
       __API_URL__: JSON.stringify("http://localhost/project-root/public/api/filemanager"),
       __CI_TOKEN__: JSON.stringify("usertoken"),

@@ -5,18 +5,14 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="col-7">
+  <section class="col-7">
     <form>
-      <div class="form-floating">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInput"
-          placeholder="Search..."
-          v-model="props.filtername"
-        />
-        <label for="floatingInput">Search...</label>
-      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search..."
+        v-model="props.filtername"
+      />
     </form>
-  </div>
+  </section>
 </template>

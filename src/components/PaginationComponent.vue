@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div class="modal-footer">
+  <section class="modal-footer">
     <nav>
       <ul class="pagination">
         <li class="page-item">
@@ -44,5 +44,5 @@ const props = defineProps<{
         </li>
       </ul>
     </nav>
-  </div>
+  </section>
 </template>

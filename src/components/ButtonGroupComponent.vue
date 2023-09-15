@@ -15,8 +15,7 @@ const onUpload = (): void => {
 </script>
 
 <template>
-  <div class="col-5 mt-2">
-    <div class="btn-group" role="group" aria-label="buttons Group">
+  <section class="col-5 mt-2">
       <span class="d-inline-block" tabindex="0" v-tooltip:arrow="'Parent'">
         <button
           type="button"
@@ -70,6 +69,5 @@ const onUpload = (): void => {
           <font-awesome-icon icon="trash-can" />
         </button>
       </span>
-    </div>
-  </div>
+    </section>
 </template>
