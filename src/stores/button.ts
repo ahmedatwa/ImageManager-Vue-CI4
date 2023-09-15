@@ -75,7 +75,6 @@ export const usebuttonStore = defineStore("button", () => {
     if (response.status === 200) {
       filemanagerStore.isVisableAlert = true;
       isFolder.value = false;
-      //folder.value = "";
       // CI 404 reponse status is 200
       if (json.code === 404) {
         filemanagerStore.messages = { error: json.code + ": " + json.message };
