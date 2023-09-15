@@ -64,123 +64,138 @@ const closeBsModal = (): void => {
 </script>
 
 <template>
-  <div class="title-container d-flex mt-2">
-    <div class="me-auto p-2">
-      <h5 class="modal-title">
-        {{ title }} <small class="fw-light">{{ appVersion }}</small>
-      </h5>
+    <div class="title-container d-flex mt-2">
+      <div class="me-auto p-2">
+        <h5 class="modal-title">
+          {{ title }} <small class="fw-light">{{ appVersion }}</small>
+        </h5>
+      </div>
+      <div class="p-2">
+        <button
+          type="button"
+          class="btn-close"
+          @click="closeBsModal"
+          aria-label="Close"
+        ></button>
+      </div>
     </div>
-    <div class="p-2">
-      <button
-        type="button"
-        class="btn-close"
-        @click="closeBsModal"
-        aria-label="Close"
-      ></button>
-    </div>
-  </div>
-  <div class="container-fluid mt-2">
-    <section class="row border-top border-bottom py-2">
-      <ButtonGroupComponent
-        :currentPath="filemanagerStore.currentPath"
-      ></ButtonGroupComponent>
-      <SearchFormComponent></SearchFormComponent>
-      <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
-    </section>
-    <FolderFormComponent
-      v-if="buttonStore.isFolder"
-      :create-folder="buttonStore.createFolder"
-    ></FolderFormComponent>
-    <div class="text-center px-1 mt-3 pt-2">
-      <PlaceholderComponent
-        v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
-        :is-loading="filemanagerStore.isLoading"
-        :is-empty="!filemanagerStore.totalPages"
-      >
-      </PlaceholderComponent>
-      <div
-        class="row row-cols-sm-3 row-cols-lg-4 mx-auto"
-        v-if="filemanagerStore.filteredData.length"
-      >
-        <div id="filter-container"
-          v-for="(item, index) in filemanagerStore.filteredData"
-          :key="index"
+    <div class="container-fluid mt-2">
+      <section class="row border-top border-bottom py-2">
+        <ButtonGroupComponent
+          :currentPath="filemanagerStore.currentPath"
+        ></ButtonGroupComponent>
+        <SearchFormComponent></SearchFormComponent>
+        <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
+      </section>
+      <FolderFormComponent
+        v-if="buttonStore.isFolder"
+        :create-folder="buttonStore.createFolder"
+      ></FolderFormComponent>
+      <div class="text-center px-1 mt-3 pt-2">
+        <PlaceholderComponent
+          v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
+          :is-loading="filemanagerStore.isLoading"
+          :is-empty="!filemanagerStore.totalPages"
+        >
+        </PlaceholderComponent>
+        <Transition name="fade">
+        <div
+          class="row row-cols-sm-3 row-cols-lg-4 mx-auto"
+          v-if="filemanagerStore.filteredData.length"
         >
           <div
-            v-if="item.type === 'directory'"
-            :id="`row-directory-${index}`"
-            class="mb-3"
+            id="filter-container"
+            v-for="(item, index) in filemanagerStore.filteredData"
+            :key="index"
           >
-            <div class="mb-1">
-              <a
-                @click.prevent="filemanagerStore.getList(item.href, item.path)"
-                class="directory"
-              >
-                <font-awesome-icon icon="folder" class="fa-5x text-primary" />
-              </a>
-            </div>
-            <div class="form-check form-check-inline">
-              <label
-                class="form-check-label text-wrap"
-                :for="`input-path-${index}`"
-                >{{ item.name }}</label
-              >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                v-model="buttonStore.deletPath"
-                :value="item.path"
-              />
-            </div>
-          </div>
-          <!-- Images -->
-          <div
-            v-if="item.type === 'image'"
-            :id="`row-image-${index}`"
-            style="min-height: 100px"
-            class="mb-3"
-          >
-            <div class="card border-0">
-              <a @click.prevent="thumb(item.thumb, item.path)" class="image">
-                <img
-                  :src="item.thumb"
-                  :alt="item.name"
-                  :title="item.name"
-                  class="img-thumbnail"
+            <div
+              v-if="item.type === 'directory'"
+              :id="`row-directory-${index}`"
+              class="mb-3"
+            >
+              <div class="mb-1">
+                <a
+                  @click.prevent="
+                    filemanagerStore.getList(item.href, item.path)
+                  "
+                  class="directory"
+                >
+                  <font-awesome-icon icon="folder" class="fa-5x text-primary" />
+                </a>
+              </div>
+              <div class="form-check form-check-inline">
+                <label
+                  class="form-check-label text-wrap"
+                  :for="`input-path-${index}`"
+                  >{{ item.name }}</label
+                >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="buttonStore.deletPath"
+                  :value="item.path"
                 />
-              </a>
-              <div class="card-body">
-                <div class="form-check form-check-inline">
-                  <label
-                    class="form-check-label text-break"
-                    :for="`input-path-${index}`"
-                    >{{ item.name }}</label
-                  >
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    v-model="buttonStore.deletPath"
-                    :value="item.path"
+              </div>
+            </div>
+            <!-- Images -->
+            <div
+              v-if="item.type === 'image'"
+              :id="`row-image-${index}`"
+              style="min-height: 100px"
+              class="mb-3"
+            >
+              <div class="card border-0">
+                <a @click.prevent="thumb(item.thumb, item.path)" class="image">
+                  <img
+                    :src="item.thumb"
+                    :alt="item.name"
+                    :title="item.name"
+                    class="img-thumbnail"
                   />
+                </a>
+                <div class="card-body">
+                  <div class="form-check form-check-inline">
+                    <label
+                      class="form-check-label text-break"
+                      :for="`input-path-${index}`"
+                      >{{ item.name }}</label
+                    >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="buttonStore.deletPath"
+                      :value="item.path"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </Transition>
       </div>
+      <PaginationComponent
+        v-if="filemanagerStore.totalPages > 1"
+        :currentPage="filemanagerStore.currentPage"
+        :previousPage="filemanagerStore.previousPage"
+        :nextPage="filemanagerStore.nextPage"
+        :totalPages="filemanagerStore.totalPages"
+        :paginate="filemanagerStore.paginate"
+      ></PaginationComponent>
     </div>
-    <PaginationComponent
-      v-if="filemanagerStore.totalPages > 1"
-      :currentPage="filemanagerStore.currentPage"
-      :previousPage="filemanagerStore.previousPage"
-      :nextPage="filemanagerStore.nextPage"
-      :totalPages="filemanagerStore.totalPages"
-      :paginate="filemanagerStore.paginate"
-    ></PaginationComponent>
-  </div>
+  
 </template>
 <style scoped>
-.card{
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.card {
   width: 17rem;
 }
 </style>

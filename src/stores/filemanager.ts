@@ -6,21 +6,11 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   // state
   const currentPath = ref("");
   const filtername = ref("");
-  const perPage = ref(15);
+  const perPage = ref(12);
   const currentPage = ref(1);
   const isLoading = ref(false);
   const isVisableAlert = ref(false);
   const messages = ref<object>([]);
-
-  type responseData = {
-    name: string;
-    href: string;
-    type: string;
-    path: string;
-    thumb: string;
-  };
-
-  const data = ref<responseData[] | []>([]);
 
   const getUrlParam = (key: string): string | null | undefined => {
     let loc = location.toString();
@@ -67,9 +57,19 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     return Math.ceil(data.value.length / perPage.value);
   });
 
+  type responseData = {
+    name: string;
+    href: string;
+    type: string;
+    path: string;
+    thumb: string;
+  };
+
+  const data = ref<responseData[] | []>([]);
+
   const filteredData = computed((): responseData[] => {
     if (data.value.length === 0) return [];
-    return data.value
+    let filter = data.value
       .filter((item: responseData) => {
         return item.name.toLowerCase().includes(filtername.value.toLowerCase());
       })
@@ -78,6 +78,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
         let end = currentPage.value * perPage.value;
         if (index >= start && index < end) return true;
       });
+    return filter;
   });
 
   // reset current page on status change
@@ -85,6 +86,9 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
     [() => filtername.value, () => currentPath.value],
     ([__newFilter, __newPath]) => {
       currentPage.value = 1;
+      if(filteredData.value.length === 0) {
+        totalPages.value = 0
+      }
     }
   );
 
@@ -104,8 +108,8 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
       const resource = await response.json();
       data.value = resource;
       isLoading.value = false;
-      await nextTick()
-      filtername.value = ''
+      await nextTick();
+      filtername.value = "";
     } catch (error) {
       isLoading.value = false;
       isVisableAlert.value = true;
