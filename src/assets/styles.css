@@ -29,6 +29,9 @@
   --danger-border-subtle: #f1aeb5;
   --success-bg-subtle: #d1e7dd;
   --danger-bg-subtle: #f8d7da;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: #dee2e6;
   --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -105,11 +108,7 @@ body {
   padding-left: calc(var(--gutter-x) * 0.5);
   padding-right: calc(var(--gutter-x) * 0.5);
 }
-.card-body {
-  flex: 1 1 auto;
-  padding: var(--card-spacer-y) var(--card-spacer-x);
-  color: var(--card-color);
-}
+
 .text-center {
   text-align: center !important;
 }
@@ -129,6 +128,10 @@ body {
 }
 .border-bottom {
   border-bottom: var(--border-width) var(--border-style) var(--border-color) !important;
+}
+
+.border {
+  border: var(--border-width) var(--border-style) var(--border-color) !important;
 }
 
 .fa-5x {
@@ -271,6 +274,15 @@ body {
   background-clip: border-box;
   border: var(--card-border-width) solid var(--card-border-color);
   border-radius: var(--card-border-radius);
+}
+.card-body {
+  flex: 1 1 auto;
+  padding: var(--card-spacer-y) var(--card-spacer-x);
+  color: var(--card-color);
+}
+.card-title {
+  margin-bottom: var(--bs-card-title-spacer-y);
+  color: var(--bs-card-title-color);
 }
 .border-0 {
   border: 0 !important;

@@ -8,6 +8,7 @@ export const usebuttonStore = defineStore("button", () => {
   const filemanagerStore = useFilemanagerStore();
   const isFolder = ref(false);
   const deletPath = ref([]);
+  const isSpinning = ref(false);
 
   // getters
   // create folder api controller method
@@ -38,6 +39,10 @@ export const usebuttonStore = defineStore("button", () => {
   };
 
   const doRefresh = (): void => {
+    isSpinning.value = true;
+    setTimeout(() => {
+      isSpinning.value = false;
+    }, 600);
     let path = filemanagerStore.currentPath;
     // clear Alerts
     filemanagerStore.messages = [];
@@ -151,6 +156,7 @@ export const usebuttonStore = defineStore("button", () => {
     doRefresh,
     createFolder,
     remove,
+    isSpinning,
     deletPath,
     isFolder,
   };

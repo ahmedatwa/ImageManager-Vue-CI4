@@ -2,11 +2,12 @@
 import { useFilemanagerStore } from "@stores/filemanager.ts";
 
 const filemanagerStore = useFilemanagerStore();
+
 </script>
 
 <template>
   <section class="col-7 mt-2">
-    <form>
+    <form enctype="multipart/form-data">
       <input
         type="text"
         class="form-control float-right mr-11"

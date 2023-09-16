@@ -19,7 +19,7 @@ const onUpload = (): void => {
       <span class="d-inline-block" tabindex="0" v-tooltip:arrow="'Parent'">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn btn-secondary border mr-2"
           @click="buttonStore.goParent"
           :disabled="props.currentPath.indexOf('/') === -1"
         >
@@ -29,13 +29,15 @@ const onUpload = (): void => {
       <button
         v-tooltip:arrow="'Refresh'"
         type="button"
-        class="btn btn-light"
+        class="btn btn-light border mr-2"
         @click="buttonStore.doRefresh"
-      >
-        <font-awesome-icon icon="arrows-rotate" />
+      > 
+
+      <font-awesome-icon icon="arrows-rotate" spin v-if="buttonStore.isSpinning"/>
+      <font-awesome-icon icon="arrows-rotate" v-else/>
       </button>
       <button
-        class="btn btn-primary"
+        class="btn btn-primary border mr-2"
         type="button"
         v-tooltip:arrow="'Create Folder'"
         @click="buttonStore.isFolder = !buttonStore.isFolder"
@@ -45,7 +47,7 @@ const onUpload = (): void => {
       <button
         v-tooltip:arrow="'Upload'"
         type="button"
-        class="btn btn-light"
+        class="btn btn-light border mr-2"
         @click="onUpload"
       >
         <font-awesome-icon icon="upload" />
@@ -62,7 +64,7 @@ const onUpload = (): void => {
         <button
           title="Delete"
           type="button"
-          class="btn btn-danger"
+          class="btn btn-danger border"
           @click="buttonStore.remove"
           :disabled="!buttonStore.deletPath.length"
         >
@@ -71,3 +73,8 @@ const onUpload = (): void => {
       </span>
     </section>
 </template>
+<style scoped>
+.mr-2 {
+  margin-right: 2px;
+}
+</style>

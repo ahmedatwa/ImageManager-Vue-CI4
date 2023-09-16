@@ -195,7 +195,4 @@ const closeBsModal = (): void => {
 .fade-leave-to {
   opacity: 0;
 }
-.card {
-  width: 17rem;
-}
 </style>
