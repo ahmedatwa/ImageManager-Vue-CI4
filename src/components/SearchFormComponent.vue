@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <section class="col-7">
+  <section id="search-form" class="col-4 my-2 me-1">
     <form>
       <input
         type="text"

@@ -2,6 +2,8 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useFilemanagerStore } from "@stores/filemanager.ts";
+import { useAxios } from "@vueuse/integrations/useAxios";
+import axios from "axios";
 
 export const usebuttonStore = defineStore("button", () => {
   // state
@@ -12,17 +14,17 @@ export const usebuttonStore = defineStore("button", () => {
   // getters
   // create folder api controller method
   const createApiURL = computed((): string => {
-    return __API_URL__ + "/folder" + filemanagerStore.tokenUrlParam;
+    return __APP_ENDPOINT__ + "/folder" + filemanagerStore.tokenUrlParam;
   });
 
   // delete api controller method
   const deleteURL = computed((): string => {
-    return __API_URL__ + "/doDelete" + filemanagerStore.tokenUrlParam;
+    return __APP_ENDPOINT__ + "/delete" + filemanagerStore.tokenUrlParam;
   });
 
   // upload api controller method
   const uploadURL = computed((): string => {
-    return __API_URL__ + "/upload" + filemanagerStore.tokenUrlParam;
+    return __APP_ENDPOINT__ + "/upload" + filemanagerStore.tokenUrlParam;
   });
 
   // Actions
@@ -120,38 +122,50 @@ export const usebuttonStore = defineStore("button", () => {
     }
   };
 
-  const doUpload = async (e: Event): Promise<void> => {
-    let target = e.target as HTMLInputElement;
 
-    if (!target.files) return;
+  const upload = async (files: FileList | null): Promise<void> => {
+    await axios
+      .postForm(uploadURL.value, {
+        directory: filemanagerStore.currentPath,
+        "files[]": files,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        filemanagerStore.isVisableAlert = true;
+        filemanagerStore.messages = error.response.data.messages.error;
+      });
 
-    let formData = new FormData();
-    formData.append("files", target.files[0]);
-    formData.append("directory", filemanagerStore.currentPath);
+    // if (!uploadedFiles.value) return;
 
-    let response = await fetch(uploadURL.value, {
-      method: "POST",
-      body: formData,
-    });
-    if (response.status === 400) {
-      let data = await response.json();
-      filemanagerStore.isVisableAlert = true;
-      filemanagerStore.messages = data.messages;
-    }
-    if (response.status === 200) {
-      let data = await response.json();
-      filemanagerStore.isVisableAlert = true;
-      filemanagerStore.messages = data;
-      filemanagerStore.getList(
-        filemanagerStore.apiUrlList,
-        filemanagerStore.currentPath
-      );
-    }
+    //   let formData = new FormData();
+    //  // formData.append("files", files);
+    //   formData.append("directory", filemanagerStore.currentPath);
+
+    //   let response = await fetch(uploadURL.value, {
+    //     method: "POST",
+    //     body: formData,
+    //   });
+    //   if (response.status === 400) {
+    //     let data = await response.json();
+    //     filemanagerStore.isVisableAlert = true;
+    //     filemanagerStore.messages = data.messages;
+    //   }
+    //   if (response.status === 200) {
+    //     let data = await response.json();
+    //     filemanagerStore.isVisableAlert = true;
+    //     filemanagerStore.messages = data;
+    //     filemanagerStore.getList(
+    //       filemanagerStore.apiUrlList,
+    //       filemanagerStore.currentPath
+    //     );
+    //   }
   };
 
   return {
     goParent,
-    doUpload,
+    upload,
     doRefresh,
     createFolder,
     remove,

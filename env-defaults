@@ -1,0 +1,5 @@
+VITE_APP_NAME=Image Manager
+VITE_APP_ENDPOINT=http://localhost/project-root/public/api/filemanager
+VITE_APP_CI_TOKEN_PARAM=
+VITE_APP_CI_THUMB_PARAM=thumb-image
+VITE_APP_CI_INPUT_PARAM=input-image

@@ -1,6 +1,7 @@
 // stores/filemanager.ts
 import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
+import { useCeil } from "@vueuse/math";
 
 export const useFilemanagerStore = defineStore("filemanager", () => {
   // state
@@ -35,24 +36,24 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
   };
 
   const tokenUrlParam = computed(() => {
-    if (getUrlParam(__CI_TOKEN__) !== undefined) {
-      return "?" + getUrlParam(__CI_TOKEN__);
+    if (getUrlParam(__CI_TOKEN_QUERY__) !== undefined) {
+      return "?" + getUrlParam(__CI_TOKEN_QUERY__);
     } else {
-      return "?";
+      return __CI_TOKEN_QUERY__;
     }
   });
 
   const thumbUrlParam = computed(() => {
-    if (getUrlParam(__CI_THUMB__) !== undefined) {
-      return "&" + getUrlParam(__CI_THUMB__);
+    if (getUrlParam(__CI_THUMB_QUERY__) !== undefined) {
+      return "&" + getUrlParam(__CI_THUMB_QUERY__);
     } else {
       return "";
     }
   });
 
   const inputUrlParam = computed(() => {
-    if (getUrlParam(__CI_INPUT__) !== undefined) {
-      return "&" + getUrlParam(__CI_INPUT__);
+    if (getUrlParam(__CI_INPUT_QUERY__) !== undefined) {
+      return "&" + getUrlParam(__CI_INPUT_QUERY__);
     } else {
       return "";
     }
@@ -60,7 +61,7 @@ export const useFilemanagerStore = defineStore("filemanager", () => {
 
   // list api controller method
   const apiUrlList = computed((): string => {
-    return __API_URL__ + "/list" + tokenUrlParam.value;
+    return __APP_ENDPOINT__ + "/list" + tokenUrlParam.value;
   });
 
   const totalPages = computed((): number => {

@@ -4,11 +4,12 @@ import FolderFormComponent from "@components/FolderFormComponent.vue";
 import PaginationComponent from "@components/PaginationComponent.vue";
 import SearchFormComponent from "@components/SearchFormComponent.vue";
 import AlertComponent from "@components/AlertComponent.vue";
-import ButtonGroupComponent from "@components/ButtonGroupComponent.vue";
+import ButtonComponent from "@components/ButtonComponent.vue";
 
 import { ref, onMounted } from "vue";
 import { useFilemanagerStore } from "@stores/filemanager.ts";
 import { usebuttonStore } from "@stores/button.ts";
+import { useFileDialog } from "@vueuse/core";
 
 const filemanagerStore = useFilemanagerStore();
 const buttonStore = usebuttonStore();
@@ -17,6 +18,11 @@ const appVersion = ref(__APP_VERSION__);
 
 onMounted(() => {
   filemanagerStore.getList();
+});
+
+const { open, onChange } = useFileDialog();
+onChange((files: FileList | null) => {
+  buttonStore.upload(files);
 });
 
 // for CI to target the input and img element
@@ -64,118 +70,98 @@ const closeBsModal = (): void => {
 </script>
 
 <template>
-  <div class="d-flex mx-6 mt-2">
-    <div class="me-auto p-2">
-      <h5 class="modal-title">
-        {{ title }} <small class="fw-light">{{ appVersion }}</small>
-      </h5>
-    </div>
-    <div class="p-2">
-      <button
-        type="button"
-        class="btn-close"
-        @click="closeBsModal"
-        aria-label="Close"
-      ></button>
-    </div>
-  </div>
-  <div class="container mt-2">
-    <div class="row border-top pt-2">
-      <ButtonGroupComponent
-        :currentPath="filemanagerStore.currentPath"
-      ></ButtonGroupComponent>
-      <SearchFormComponent
-        :filtername="filemanagerStore.filtername"
-      ></SearchFormComponent>
-      <AlertComponent v-if="filemanagerStore.isVisableAlert"></AlertComponent>
-    </div>
-    <FolderFormComponent
-      v-if="buttonStore.isFolder"
-      :create-folder="buttonStore.createFolder"
-    ></FolderFormComponent>
-    <div class="container text-center border-top px-1 mt-3 pt-2">
-       
-      <PlaceholderComponent
-        v-if="filemanagerStore.isLoading || !filemanagerStore.totalPages"
-        :is-loading="filemanagerStore.isLoading"
-        :is-empty="!filemanagerStore.totalPages"
-      >
-      </PlaceholderComponent> 
-      <div class="row row-cols-sm-3 row-cols-lg-4 mx-auto" v-if="filemanagerStore.filteredData.length">
-        <div
-          v-for="(item, index) in filemanagerStore.filteredData"
-          :key="index"
-        >
-          <div
-            v-if="item.type === 'directory'"
-            :id="`row-directory-${index}`"
-            class="mb-3"
-          >
-            <div class="mb-1">
-              <a
-                @click.prevent="filemanagerStore.getList(item.href, item.path)"
-                class="directory"
-              >
-                <font-awesome-icon icon="folder" class="fa-5x text-primary" />
-              </a>
-            </div>
-            <div class="form-check form-check-inline">
-              <label
-                class="form-check-label text-wrap"
-                :for="`input-path-${index}`"
-                >{{ item.name }}</label
-              >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                v-model="buttonStore.deletPath"
-                :value="item.path"
-              />
-            </div>
+  <main>
+    <div class="container-lg">
+      <div class="card mb-3 border border-top-0">
+        <div class="d-flex mx-6 mt-2 bg-light border-bottom">
+          <div class="me-auto p-2">
+            <h5 class="modal-title">
+              {{ title }} <small class="fw-light">{{ appVersion }}</small>
+            </h5>
           </div>
-          <!-- Images -->
-          <div
-            v-if="item.type === 'image'"
-            :id="`row-image-${index}`"
-            style="min-height: 100px"
-            class="mb-3"
-          >
-            <div class="card border-0">
-              <a @click.prevent="thumb(item.thumb, item.path)" class="image">
-                <img
-                  :src="item.thumb"
-                  :alt="item.name"
-                  :title="item.name"
-                  class="img-thumbnail"
-                />
-              </a>
-              <div class="card-body">
-                <div class="form-check form-check-inline">
-                  <label
-                    class="form-check-label text-break"
-                    :for="`input-path-${index}`"
-                    >{{ item.name }}</label
-                  >
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    v-model="buttonStore.deletPath"
-                    :value="item.path"
-                  />
-                </div>
-              </div>
+          <div class="p-2">
+            <button
+              type="button"
+              class="btn-close"
+              @click="closeBsModal"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+
+        <section class="d-flex border-bottom">
+          <div id="button-group" class="col my-2 ms-1">
+            <ButtonComponent :id="'refresh'" @click="buttonStore.doRefresh"
+              ><font-awesome-icon icon="arrows-rotate" />
+              Refresh</ButtonComponent
+            >
+            <ButtonComponent
+              :id="'Create Folder'"
+              :class="'btn btn-primary'"
+              @click="buttonStore.createFolder"
+            >
+              <font-awesome-icon icon="folder-plus" /> Create
+              Folder</ButtonComponent
+            >
+            <ButtonComponent :id="'Upload'" @click="open">
+              <font-awesome-icon icon="upload" /> Upload</ButtonComponent
+            >
+            <ButtonComponent
+              :id="'Delete'"
+              :class="'btn btn-danger'"
+              @click="buttonStore.remove"
+            >
+              <font-awesome-icon icon="trash-can" /> Delete</ButtonComponent
+            >
+          </div>
+          <SearchFormComponent
+            :filtername="filemanagerStore.filtername"
+          ></SearchFormComponent>
+        </section>
+
+        <div class="row g-0">
+          <div class="col-md-4">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item disabled" aria-disabled="true">
+                A disabled item
+              </li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+              <li class="list-group-item">A fourth item</li>
+              <li class="list-group-item">And a fifth one</li>
+            </ul>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <!-- breadcrumb -->
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Home
+                  </li>
+                </ol>
+              </nav>
+              <!-- sort -->
+
+              <!-- toggle icons/list -->
+              <p class="card-text">
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+              <p class="card-text">
+                <PaginationComponent
+                  :previousPage="filemanagerStore.previousPage"
+                  :nextPage="filemanagerStore.nextPage"
+                  :paginate="filemanagerStore.paginate"
+                  :currentPage="filemanagerStore.currentPage"
+                  :totalPages="filemanagerStore.totalPages"
+                ></PaginationComponent>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <PaginationComponent
-      v-if="filemanagerStore.totalPages > 1"
-      :currentPage="filemanagerStore.currentPage"
-      :previousPage="filemanagerStore.previousPage"
-      :nextPage="filemanagerStore.nextPage"
-      :totalPages="filemanagerStore.totalPages"
-      :paginate="filemanagerStore.paginate"
-    ></PaginationComponent>
-  </div>
+  </main>
 </template>

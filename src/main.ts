@@ -1,9 +1,12 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { createTooltip } from "./directives/tooltip.ts";
-import "./assets/styles.css"
+//import "./assets/styles.css"
 import App from "./App.vue";
-
+// Import Bootstrap
+import './assets/styles.scss'
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap'
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 /* import font awesome icon component */
